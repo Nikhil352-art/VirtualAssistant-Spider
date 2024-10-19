@@ -12,13 +12,13 @@ function speak(text) {
 
 function wishMe() {
     let day = new Date();
-    let hours = day.getHours(); 
+    let hours = day.getHours();
     if (hours >= 0 && hours < 12) {
-        speak("Hello Good Morning");
+        speak("Hello, Good Morning");
     } else if (hours >= 12 && hours < 16) {
-        speak("Hello Good Afternoon");
+        speak("Hello, Good Afternoon");
     } else {
-        speak("Hello Good Evening");
+        speak("Hello, Good Evening");
     }
 }
 
@@ -26,24 +26,30 @@ window.addEventListener('load', () => {
     wishMe();
 });
 
-let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition; 
+let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 let recognition = new SpeechRecognition();
 
 recognition.onresult = (event) => {
-    let currentIndex = event.resultIndex;
-    let transcript = event.results[currentIndex][0].transcript; 
+    let transcript = event.results[event.results.length - 1][0].transcript;
     content.innerText = transcript;
     takeCommand(transcript.toLowerCase());
 };
 
+recognition.onerror = (event) => {
+    console.error('Speech recognition error:', event.error);
+    speak("Sorry, I couldn't understand that.");
+};
+
 btn.addEventListener("click", () => {
     recognition.start();
-    btn.style.display = "none"; 
-    voice.style.display = "block"; 
+    btn.style.display = "none";
+    voice.style.display = "block";
 });
-function takeCommand(message) { 
-    btn.style.display = "flex"; 
-    voice.style.display = "none"; 
+
+function takeCommand(message) {
+    btn.style.display = "flex";
+    voice.style.display = "none";
+
     if (message.includes("hello") || message.includes("hey")) {
         speak("Hello, what can I help you with?");
     } else if (message.includes("who are you")) {
@@ -78,18 +84,18 @@ function takeCommand(message) {
     } else if (message.includes("open netflix")) {
         speak("Opening Netflix");
         window.open("https://www.netflix.com");
-    } else if (message.includes("open calculator")) { 
+    } else if (message.includes("open calculator")) {
         speak("Opening calculator");
         alert("Opening calculator functionality is not supported via a protocol in browsers.");
     } else if (message.includes("time")) {
-        let time = new Date().toLocaleTimeString(undefined, { hour: "numeric", minute: "numeric" }); 
+        let time = new Date().toLocaleTimeString(undefined, { hour: "numeric", minute: "numeric" });
         speak(`The time is ${time}`);
     } else if (message.includes("date")) {
         let date = new Date().toLocaleDateString(undefined, { day: "numeric", month: "long", year: "numeric" });
         speak(`Today's date is ${date}`);
     } else {
-        let finalText = "This is what I found on the internet regarding " + message.replace("spider", "");
+        let finalText = "This is what I found on the internet regarding " + message;
         speak(finalText);
-        window.open(`https://www.google.com/search?q=${message.replace("spider", "")}`, "_blank");
+        window.open(`https://www.google.com/search?q=${message}`, "_blank");
     }
 }
