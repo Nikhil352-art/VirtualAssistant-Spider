@@ -14,11 +14,11 @@ function wishMe() {
     let day = new Date();
     let hours = day.getHours();
     if (hours >= 0 && hours < 12) {
-        speak("Hello, Good Morning");
+        speak("Hello, Good Morning, How can i help you !");
     } else if (hours >= 12 && hours < 16) {
-        speak("Hello, Good Afternoon");
+        speak("Hello, Good Afternoon, How can i help you !");
     } else {
-        speak("Hello, Good Evening");
+        speak("Hello, Good Evening, How can i help you !");
     }
 }
 
@@ -50,7 +50,7 @@ function takeCommand(message) {
     btn.style.display = "flex";
     voice.style.display = "none";
 
-    if (message.includes("hello") || message.includes("hey")) {
+    if (message.includes("hello") || message.includes("hey") ||message.includes("hi")) {
         speak("Hello, what can I help you with?");
     } else if (message.includes("who are you")) {
         speak("I am a virtual assistant");
