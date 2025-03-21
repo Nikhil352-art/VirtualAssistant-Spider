@@ -14,11 +14,11 @@ function wishMe() {
     let day = new Date();
     let hours = day.getHours();
     if (hours >= 0 && hours < 12) {
-        speak("Hello, Good Morning, How can i help you !");
+        speak("Hello, Good Morning, How can I help you!");
     } else if (hours >= 12 && hours < 16) {
-        speak("Hello, Good Afternoon, How can i help you !");
+        speak("Hello, Good Afternoon, How can I help you!");
     } else {
-        speak("Hello, Good Evening, How can i help you !");
+        speak("Hello, Good Evening, How can I help you!");
     }
 }
 
@@ -32,6 +32,7 @@ let recognition = new SpeechRecognition();
 recognition.onresult = (event) => {
     let transcript = event.results[event.results.length - 1][0].transcript;
     content.innerText = transcript;
+    recognition.stop();  // Stop recognition to avoid multiple executions
     takeCommand(transcript.toLowerCase());
 };
 
@@ -50,7 +51,7 @@ function takeCommand(message) {
     btn.style.display = "flex";
     voice.style.display = "none";
 
-    if (message.includes("hello") || message.includes("hey") ||message.includes("hi")) {
+    if (message.includes("hello") || message.includes("hey") || message.includes("hi")) {
         speak("Hello, what can I help you with?");
     } else if (message.includes("who are you")) {
         speak("I am a virtual assistant");
