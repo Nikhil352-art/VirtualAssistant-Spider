@@ -1,5 +1,5 @@
 let btn = document.querySelector("#btn");
-let content = document.querySelector("#content");
+let content = document.querySelector("#btn-content");
 let voice = document.querySelector("#voice");
 
 // Function to speak text
