@@ -75,7 +75,7 @@ function takeCommand(message) {
         window.open("https://web.whatsapp.com");
     } else if (message.includes("open twitter")) {
         speak("Opening Twitter");
-        window.open("https://twitter.com");
+        window.open("https://www.twitter.com");
     } else if (message.includes("open linkedin")) {
         speak("Opening LinkedIn");
         window.open("https://www.linkedin.com");
